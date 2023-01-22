@@ -340,7 +340,9 @@ class CLIP(nn.Module):
 
     def encode_image(self, image):
         #return self.visual(image.type(self.dtype))
-        return self.visual(image)
+        #return self.visual(image)
+        return self.visual(image.to(self.dtype)) #chatgpt 
+
 
     def encode_text(self, text):
         x = self.token_embedding(text).type(self.dtype)  # [batch_size, n_ctx, d_model]
