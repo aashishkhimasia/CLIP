@@ -259,10 +259,7 @@ class CLIP(nn.Module):
 
         self.context_length = context_length
           
-        # Adding self.dtype
-        
-        self.dtype = torch.float32
-        
+               
         if isinstance(vision_layers, (tuple, list)):
             vision_heads = vision_width * 32 // 64
             self.visual = ModifiedResNet(
@@ -342,7 +339,8 @@ class CLIP(nn.Module):
         return self.visual.conv1.weight.dtype
 
     def encode_image(self, image):
-        return self.visual(image.type(self.dtype))
+        #return self.visual(image.type(self.dtype))
+        return self.visual(image)
 
     def encode_text(self, text):
         x = self.token_embedding(text).type(self.dtype)  # [batch_size, n_ctx, d_model]
